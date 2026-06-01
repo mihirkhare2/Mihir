@@ -747,6 +747,10 @@ nav.scrolled{
   display:flex;align-items:center;justify-content:center;
   z-index:2;
   cursor:pointer;
+  transition:height .6s cubic-bezier(.16,1,.3,1);
+}
+.svc-stack.fanned{
+  height:1100px;
 }
 .svc-card{
   position:absolute;
@@ -785,17 +789,17 @@ nav.scrolled{
 }
 /* fanned state — fully spread so all readable */
 .svc-stack.fanned .svc-card[data-i="0"]{
-  transform:rotate(-1deg) translateY(-310px) translateX(-10px);
+  transform:rotate(-1deg) translateY(-360px) translateX(-10px);
   z-index:3;
   box-shadow:6px 6px 0 0 var(--ink);
 }
 .svc-stack.fanned .svc-card[data-i="1"]{
-  transform:rotate(0deg) translateY(10px);
+  transform:rotate(0deg) translateY(0px);
   z-index:2;
   box-shadow:6px 6px 0 0 var(--ink);
 }
 .svc-stack.fanned .svc-card[data-i="2"]{
-  transform:rotate(1deg) translateY(330px) translateX(10px);
+  transform:rotate(1deg) translateY(360px) translateX(10px);
   z-index:1;
   box-shadow:6px 6px 0 0 var(--ink);
 }
@@ -1011,6 +1015,9 @@ footer{
   #services{padding:7rem 2.5rem 10rem;}
   .svc-card{width:90vw;}
   .svc-stack{height:460px;}
+  .svc-stack.fanned{height:900px;}
+  .svc-stack.fanned .svc-card[data-i="0"]{transform:rotate(-1deg) translateY(-290px) translateX(-8px);}
+  .svc-stack.fanned .svc-card[data-i="2"]{transform:rotate(1deg) translateY(290px) translateX(8px);}
   .cont-grid{grid-template-columns:1fr;gap:4rem;}
   #contact{padding:8rem 2.5rem 6rem;}
   footer{flex-direction:column;gap:1rem;text-align:center;padding:1.5rem 2.5rem;}
@@ -1028,6 +1035,7 @@ footer{
   <a class="nav-logo" href="#">MK</a>
   <ul class="nav-menu">
     <li><a href="#about">About</a></li>
+    <li><a href="#proud">Content</a></li>
     <li><a href="#projects">Work</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1151,11 +1159,662 @@ footer{
   </div>
 </div>
 
-<!-- ══════════ PROJECTS ══════════ -->
+<!-- ══════════ A FEW THINGS I'M PROUD OF ══════════ -->
+<section id="proud">
+
+<style>
+/* ── PROUD SECTION — base ── */
+#proud{
+  background:var(--dark);
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ── HERO HEADER ── */
+.proud-hero{
+  position:relative;
+  padding:8rem 5rem 0;
+  overflow:hidden;
+  border-bottom:1px solid rgba(237,229,214,.06);
+}
+.proud-blobs{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.proud-blob1{
+  position:absolute;top:-80px;right:-60px;
+  width:500px;height:500px;border-radius:50%;
+  background:var(--pink2);opacity:.14;filter:blur(100px);
+  animation:blobDrift1 18s ease-in-out infinite alternate;
+}
+.proud-blob2{
+  position:absolute;bottom:-100px;left:-80px;
+  width:400px;height:400px;border-radius:50%;
+  background:var(--lav2);opacity:.12;filter:blur(90px);
+  animation:blobDrift2 22s ease-in-out infinite alternate;
+}
+.proud-blob3{
+  position:absolute;top:30%;right:30%;
+  width:300px;height:300px;border-radius:50%;
+  background:var(--powder);opacity:.1;filter:blur(80px);
+  animation:blobDrift1 26s ease-in-out infinite alternate-reverse;
+}
+@keyframes blobDrift1{0%{transform:translate(0,0);}100%{transform:translate(40px,-50px);}}
+@keyframes blobDrift2{0%{transform:translate(0,0);}100%{transform:translate(-30px,40px);}}
+
+.proud-hero-inner{position:relative;z-index:2;}
+.proud-eyebrow{
+  font-size:.5rem;letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(237,229,214,.3);font-weight:400;font-family:'Outfit',sans-serif;
+  display:flex;align-items:center;gap:1.2rem;
+  margin-bottom:2.2rem;
+}
+.proud-eyebrow::before{content:'';width:2.5rem;height:1px;background:rgba(237,229,214,.2);}
+.proud-title{
+  font-family:'Outfit',sans-serif;font-weight:900;
+  font-size:clamp(4rem,9vw,9rem);
+  line-height:.88;letter-spacing:-.03em;
+  color:var(--beige2);
+  margin-bottom:0;
+}
+.proud-title em{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  color:var(--pink2);letter-spacing:.01em;
+}
+.proud-title-row{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+.proud-tagline{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:1.05rem;
+  color:rgba(237,229,214,.38);
+  line-height:1.65;
+  max-width:260px;
+  text-align:right;
+  align-self:flex-end;
+  padding-bottom:.4rem;
+}
+
+/* colour metric strip */
+.proud-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:1px solid rgba(237,229,214,.06);
+  margin-top:4rem;
+}
+.proud-strip-cell{
+  padding:2.4rem 2rem;
+  border-right:1px solid rgba(237,229,214,.06);
+  position:relative;overflow:hidden;
+}
+.proud-strip-cell:last-child{border-right:none;}
+.proud-strip-cell::after{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+}
+.psc1::after{background:var(--pink2);}
+.psc2::after{background:var(--lav2);}
+.psc3::after{background:var(--lime);}
+.psc4::after{background:var(--powder);}
+.proud-strip-num{
+  font-family:'Outfit',sans-serif;font-weight:900;
+  font-size:clamp(2.4rem,4vw,4rem);
+  line-height:1;letter-spacing:-.03em;
+  color:var(--beige2);margin-bottom:.5rem;
+}
+.psc1 .proud-strip-num{color:var(--pink2);}
+.psc2 .proud-strip-num{color:var(--lav2);}
+.psc3 .proud-strip-num{color:var(--lime);}
+.psc4 .proud-strip-num{color:var(--powder);}
+.proud-strip-lbl{
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(237,229,214,.32);font-weight:400;line-height:1.6;
+}
+
+/* ── VIDEO SECTION ── */
+.proud-video-section{
+  padding:5rem 0 2rem;
+  position:relative;z-index:2;
+}
+.proud-sec-head{
+  padding:0 5rem;
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:2.8rem;
+}
+.proud-sec-label{
+  font-size:.5rem;letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(237,229,214,.28);font-weight:400;font-family:'Outfit',sans-serif;
+  display:flex;align-items:center;gap:1rem;
+}
+.proud-sec-label::before{content:'';width:2rem;height:1px;background:rgba(237,229,214,.18);}
+.proud-sec-title{
+  font-family:'Outfit',sans-serif;font-weight:900;
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  line-height:.9;letter-spacing:-.03em;
+  color:var(--beige2);
+}
+.proud-sec-title em{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  color:var(--pink2);
+}
+.proud-sec-count{
+  font-family:'Outfit',sans-serif;font-weight:900;
+  font-size:4.5rem;letter-spacing:-.05em;
+  color:rgba(237,229,214,.04);
+  line-height:1;
+}
+
+/* video scroll track */
+.video-scroll-outer{
+  overflow-x:auto;
+  overflow-y:visible;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  cursor:grab;
+  padding:0 5rem 3rem;
+}
+.video-scroll-outer:active{cursor:grabbing;}
+.video-scroll-outer::-webkit-scrollbar{display:none;}
+.video-scroll-track{
+  display:flex;
+  gap:1.5rem;
+  width:max-content;
+  padding-bottom:.5rem;
+}
+
+/* individual video card */
+.vcard{
+  width:320px;
+  flex-shrink:0;
+  background:rgba(237,229,214,.04);
+  border:1px solid rgba(237,229,214,.08);
+  overflow:hidden;
+  transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1);
+}
+.vcard:hover{border-color:rgba(237,229,214,.18);transform:translateY(-4px);}
+.vcard-thumb{
+  width:100%;
+  aspect-ratio:9/16;
+  max-height:360px;
+  position:relative;
+  overflow:hidden;
+  background:#111;
+  display:block;
+}
+.vcard-thumb video{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.vcard-play-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(26,22,20,.25);
+  transition:background .3s,opacity .3s;
+  cursor:pointer;
+}
+.vcard-thumb:hover .vcard-play-overlay,
+.vcard-thumb.playing .vcard-play-overlay{
+  background:rgba(26,22,20,.1);
+}
+.vcard-thumb.playing .vcard-play-overlay .vpo-circle{opacity:0;}
+.vpo-circle{
+  width:52px;height:52px;border-radius:50%;
+  border:1.5px solid rgba(237,229,214,.55);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .3s,border-color .3s,opacity .3s;
+  background:rgba(26,22,20,.35);
+  backdrop-filter:blur(4px);
+}
+.vcard-thumb:hover .vpo-circle{transform:scale(1.08);border-color:rgba(237,229,214,.9);}
+.vpo-tri{
+  width:0;height:0;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  border-left:16px solid rgba(237,229,214,.85);
+  margin-left:4px;
+}
+/* brand color accent bar top of each card */
+.vcard-accent{height:2px;width:100%;}
+.vcard:nth-child(1) .vcard-accent{background:var(--pink2);}
+.vcard:nth-child(2) .vcard-accent{background:var(--pink3);}
+.vcard:nth-child(3) .vcard-accent{background:var(--pink2);}
+.vcard:nth-child(4) .vcard-accent{background:var(--lav2);}
+.vcard:nth-child(5) .vcard-accent{background:var(--lav);}
+.vcard-body{padding:1.4rem 1.6rem 1.8rem;}
+.vcard-idx{
+  font-size:.48rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(237,229,214,.28);font-weight:400;margin-bottom:.5rem;
+}
+.vcard-brand{
+  font-family:'Outfit',sans-serif;font-weight:800;
+  font-size:1.1rem;letter-spacing:-.01em;
+  color:var(--beige2);margin-bottom:.3rem;line-height:1;
+}
+.vcard-type{
+  font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(237,229,214,.3);font-weight:400;margin-bottom:1.2rem;
+}
+.vcard-metrics{
+  border-top:1px solid rgba(237,229,214,.07);
+  padding-top:1.1rem;
+  display:flex;flex-direction:column;gap:.65rem;
+}
+.vcard-mrow{
+  display:flex;justify-content:space-between;align-items:baseline;
+}
+.vcard-mlbl{
+  font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(237,229,214,.28);font-weight:400;
+}
+.vcard-mval{
+  font-family:'Outfit',sans-serif;font-weight:800;
+  font-size:.92rem;letter-spacing:-.01em;
+}
+.mvc-pk{color:var(--pink2);}
+.mvc-lv{color:var(--lav2);}
+.mvc-li{color:var(--lime);}
+.mvc-pw{color:var(--powder);}
+.mvc-wh{color:var(--beige2);}
+.vcard-scope{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;
+}
+.vcard-scope-tag{
+  font-size:.42rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.28rem .75rem;
+  border:1px solid rgba(237,229,214,.12);
+  color:rgba(237,229,246,.3);
+}
+
+/* drag hint */
+.drag-hint{
+  padding:0 5rem 1rem;
+  font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(237,229,214,.2);font-weight:400;
+  display:flex;align-items:center;gap:1rem;
+}
+.drag-hint::after{content:'→';font-size:.75rem;color:rgba(237,229,214,.15);}
+
+/* ── PHOTO CAROUSEL ── */
+.proud-photo-section{
+  padding:4rem 0 0;
+  position:relative;z-index:2;
+  border-top:1px solid rgba(237,229,214,.06);
+}
+.photo-carousel-outer{
+  overflow:hidden;
+  position:relative;
+  padding:2.5rem 0 4rem;
+}
+.photo-carousel-track{
+  display:flex;
+  gap:1.2rem;
+  width:max-content;
+  animation:infiniteScroll 35s linear infinite;
+}
+.photo-carousel-track:hover{animation-play-state:paused;}
+/* duplicate set for seamless loop */
+.photo-carousel-track.clone{animation:infiniteScroll 35s linear infinite;}
+@keyframes infiniteScroll{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+.photo-card{
+  width:200px;
+  height:260px;
+  flex-shrink:0;
+  overflow:hidden;
+  border:1px solid rgba(237,229,214,.08);
+  position:relative;
+  background:#111;
+}
+.photo-card img{
+  width:100%;height:100%;
+  object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s;
+  filter:saturate(.85);
+}
+.photo-card:hover img{transform:scale(1.04);filter:saturate(1);}
+.photo-card-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(26,22,20,.5) 0%, transparent 55%);
+  pointer-events:none;
+}
+
+/* proof label */
+.photo-proof-label{
+  padding:0 5rem 1.5rem;
+  font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(237,229,214,.2);font-weight:400;
+  display:flex;align-items:center;gap:1rem;
+}
+.photo-proof-label::before{content:'';width:2rem;height:1px;background:rgba(237,229,214,.12);}
+
+/* ── DISCLAIMER FOOTER ── */
+.proud-footer{
+  padding:2rem 5rem;
+  border-top:1px solid rgba(237,229,214,.06);
+  display:flex;justify-content:space-between;align-items:center;
+  gap:2rem;
+}
+.proud-disc{
+  font-size:.48rem;letter-spacing:.12em;
+  color:rgba(237,229,214,.2);font-weight:300;
+  font-style:italic;
+  line-height:1.7;
+  max-width:600px;
+}
+.proud-disc-dot{
+  display:inline-block;width:5px;height:5px;
+  background:var(--lime);border-radius:50%;
+  margin-right:.5rem;vertical-align:middle;
+}
+.proud-count-tag{
+  font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(237,229,214,.18);font-weight:400;white-space:nowrap;
+}
+
+/* responsive */
+@media(max-width:1024px){
+  .proud-hero{padding:6rem 2.5rem 0;}
+  .proud-sec-head{padding:0 2.5rem;}
+  .proud-strip{grid-template-columns:1fr 1fr;}
+  .proud-strip-cell:nth-child(2){border-right:none;}
+  .proud-strip-cell:nth-child(3){border-top:1px solid rgba(237,229,214,.06);}
+  .proud-strip-cell:nth-child(4){border-top:1px solid rgba(237,229,214,.06);border-right:none;}
+  .video-scroll-outer{padding:0 2.5rem 3rem;}
+  .drag-hint{padding:0 2.5rem 1rem;}
+  .photo-proof-label{padding:0 2.5rem 1.5rem;}
+  .proud-footer{padding:2rem 2.5rem;flex-direction:column;align-items:flex-start;gap:1rem;}
+  .proud-tagline{display:none;}
+}
+</style>
+
+  <!-- BLOBS -->
+  <div class="proud-blobs">
+    <div class="proud-blob1"></div>
+    <div class="proud-blob2"></div>
+    <div class="proud-blob3"></div>
+  </div>
+
+  <!-- HERO HEADER -->
+  <div class="proud-hero">
+    <div class="proud-hero-inner">
+      <div class="proud-eyebrow">Work that performed — 2023 to 2026</div>
+      <div class="proud-title-row">
+        <h2 class="proud-title">A Few Things<br>I'm <em>Proud Of.</em></h2>
+        <p class="proud-tagline">Short-form content built for reach, saves, and inbound — not one-off posts.</p>
+      </div>
+    </div>
+
+    <!-- COLOUR METRIC STRIP -->
+    <div class="proud-strip">
+      <div class="proud-strip-cell psc1">
+        <div class="proud-strip-num">199k+</div>
+        <div class="proud-strip-lbl">Peak reel<br>views</div>
+      </div>
+      <div class="proud-strip-cell psc2">
+        <div class="proud-strip-num">1,960</div>
+        <div class="proud-strip-lbl">Peak reel<br>interactions</div>
+      </div>
+      <div class="proud-strip-cell psc3">
+        <div class="proud-strip-num">170+</div>
+        <div class="proud-strip-lbl">Followers from<br>a single reel</div>
+      </div>
+      <div class="proud-strip-cell psc4">
+        <div class="proud-strip-num">5</div>
+        <div class="proud-strip-lbl">Reels across<br>3 brands</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO ROW -->
+  <div class="proud-video-section">
+    <div class="proud-sec-head">
+      <div>
+        <div class="proud-sec-label">Video content</div>
+        <h3 class="proud-sec-title">Work that <em>performs.</em></h3>
+      </div>
+      <div class="proud-sec-count">05</div>
+    </div>
+
+    <div class="drag-hint">Drag to explore</div>
+
+    <div class="video-scroll-outer" id="videoScroll">
+      <div class="video-scroll-track">
+
+        <!-- CARD 1 — Dhaba1 (best performer) -->
+        <div class="vcard">
+          <div class="vcard-accent"></div>
+          <div class="vcard-thumb" id="vt0">
+            <video src="assets/videos/Dhaba1.mp4" preload="metadata" playsinline loop></video>
+            <div class="vcard-play-overlay" onclick="toggleVideo(this,0)">
+              <div class="vpo-circle"><div class="vpo-tri"></div></div>
+            </div>
+          </div>
+          <div class="vcard-body">
+            <div class="vcard-idx">01 / 05</div>
+            <div class="vcard-brand">Dhaba Dine Inn</div>
+            <div class="vcard-type">Restaurant · Food Content</div>
+            <div class="vcard-metrics">
+              <div class="vcard-mrow"><span class="vcard-mlbl">Views</span><span class="vcard-mval mvc-pk">199k+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Interactions</span><span class="vcard-mval mvc-pk">1,960</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Follows gained</span><span class="vcard-mval mvc-wh">170+</span></div>
+            </div>
+            <div class="vcard-scope">
+              <span class="vcard-scope-tag">Concept</span>
+              <span class="vcard-scope-tag">Shot</span>
+              <span class="vcard-scope-tag">Edited</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 — Dhaba3 -->
+        <div class="vcard">
+          <div class="vcard-accent"></div>
+          <div class="vcard-thumb" id="vt1">
+            <video src="assets/videos/dhaba3.mp4" preload="metadata" playsinline loop></video>
+            <div class="vcard-play-overlay" onclick="toggleVideo(this,1)">
+              <div class="vpo-circle"><div class="vpo-tri"></div></div>
+            </div>
+          </div>
+          <div class="vcard-body">
+            <div class="vcard-idx">02 / 05</div>
+            <div class="vcard-brand">Dhaba Dine Inn</div>
+            <div class="vcard-type">Restaurant · Food Content</div>
+            <div class="vcard-metrics">
+              <div class="vcard-mrow"><span class="vcard-mlbl">Views</span><span class="vcard-mval mvc-pk">126k+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Interactions</span><span class="vcard-mval mvc-pk">1,000+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Follows gained</span><span class="vcard-mval mvc-wh">115+</span></div>
+            </div>
+            <div class="vcard-scope">
+              <span class="vcard-scope-tag">Concept</span>
+              <span class="vcard-scope-tag">Shot</span>
+              <span class="vcard-scope-tag">Edited</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 — Dhaba2 -->
+        <div class="vcard">
+          <div class="vcard-accent"></div>
+          <div class="vcard-thumb" id="vt2">
+            <video src="assets/videos/dhaba2.mp4" preload="metadata" playsinline loop></video>
+            <div class="vcard-play-overlay" onclick="toggleVideo(this,2)">
+              <div class="vpo-circle"><div class="vpo-tri"></div></div>
+            </div>
+          </div>
+          <div class="vcard-body">
+            <div class="vcard-idx">03 / 05</div>
+            <div class="vcard-brand">Dhaba Dine Inn</div>
+            <div class="vcard-type">Restaurant · Food Content</div>
+            <div class="vcard-metrics">
+              <div class="vcard-mrow"><span class="vcard-mlbl">Views</span><span class="vcard-mval mvc-pk">114k+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Interactions</span><span class="vcard-mval mvc-pk">1,000+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Follows gained</span><span class="vcard-mval mvc-wh">125+</span></div>
+            </div>
+            <div class="vcard-scope">
+              <span class="vcard-scope-tag">Concept</span>
+              <span class="vcard-scope-tag">Shot</span>
+              <span class="vcard-scope-tag">Edited</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 — Rosella2 -->
+        <div class="vcard">
+          <div class="vcard-accent"></div>
+          <div class="vcard-thumb" id="vt3">
+            <video src="assets/videos/rosella2.mp4" preload="metadata" playsinline loop></video>
+            <div class="vcard-play-overlay" onclick="toggleVideo(this,3)">
+              <div class="vpo-circle"><div class="vpo-tri"></div></div>
+            </div>
+          </div>
+          <div class="vcard-body">
+            <div class="vcard-idx">04 / 05</div>
+            <div class="vcard-brand">Rosella</div>
+            <div class="vcard-type">Jewellery · Sterling Silver</div>
+            <div class="vcard-metrics">
+              <div class="vcard-mrow"><span class="vcard-mlbl">Impressions</span><span class="vcard-mval mvc-lv">8,000+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Follows gained</span><span class="vcard-mval mvc-wh">100+</span></div>
+            </div>
+            <div class="vcard-scope">
+              <span class="vcard-scope-tag">Concept</span>
+              <span class="vcard-scope-tag">Shot</span>
+              <span class="vcard-scope-tag">Edited</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5 — Rosella1 -->
+        <div class="vcard">
+          <div class="vcard-accent"></div>
+          <div class="vcard-thumb" id="vt4">
+            <video src="assets/videos/Rosella1.mp4" preload="metadata" playsinline loop></video>
+            <div class="vcard-play-overlay" onclick="toggleVideo(this,4)">
+              <div class="vpo-circle"><div class="vpo-tri"></div></div>
+            </div>
+          </div>
+          <div class="vcard-body">
+            <div class="vcard-idx">05 / 05</div>
+            <div class="vcard-brand">Rosella</div>
+            <div class="vcard-type">Jewellery · Sterling Silver</div>
+            <div class="vcard-metrics">
+              <div class="vcard-mrow"><span class="vcard-mlbl">Impressions</span><span class="vcard-mval mvc-lv">8,000+</span></div>
+              <div class="vcard-mrow"><span class="vcard-mlbl">Follows gained</span><span class="vcard-mval mvc-wh">50+</span></div>
+            </div>
+            <div class="vcard-scope">
+              <span class="vcard-scope-tag">Concept</span>
+              <span class="vcard-scope-tag">Shot</span>
+              <span class="vcard-scope-tag">Edited</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+    </div><!-- /outer -->
+  </div><!-- /video-section -->
+
+  <!-- PHOTO CAROUSEL -->
+  <div class="proud-photo-section">
+    <div class="proud-sec-head">
+      <div>
+        <div class="proud-sec-label">Proof of performance</div>
+        <h3 class="proud-sec-title">Numbers that <em>don't lie.</em></h3>
+      </div>
+    </div>
+    <div class="photo-proof-label">Metrics screenshots — Instagram &amp; LinkedIn</div>
+    <div class="photo-carousel-outer">
+      <div class="photo-carousel-track" id="photoTrack">
+        <div class="photo-card"><img src="assets/images/1.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/2.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/3.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/4.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/5.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/6.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/7.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/8.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/9.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/10.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/11.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/12.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <!-- duplicate for seamless loop -->
+        <div class="photo-card"><img src="assets/images/1.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/2.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/3.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/4.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/5.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/6.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/7.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/8.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/9.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/10.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/11.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+        <div class="photo-card"><img src="assets/images/12.jpeg" alt="Metrics" loading="lazy"><div class="photo-card-overlay"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER FOOTER -->
+  <div class="proud-footer">
+    <p class="proud-disc"><span class="proud-disc-dot"></span>All content created during active client engagements 2023–2026. Metrics reflect period under active management. Client identities shown with permission or kept confidential upon request.</p>
+    <span class="proud-count-tag">5 reels · 3 brands · 10+ accounts managed</span>
+  </div>
+
+  <script>
+  /* ── VIDEO PLAY TOGGLE ── */
+  const videoEls = [
+    document.querySelector('#vt0 video'),
+    document.querySelector('#vt1 video'),
+    document.querySelector('#vt2 video'),
+    document.querySelector('#vt3 video'),
+    document.querySelector('#vt4 video'),
+  ];
+  function toggleVideo(overlayEl, idx){
+    const thumb = overlayEl.parentElement;
+    const vid = videoEls[idx];
+    const isPlaying = !vid.paused;
+    /* pause all others */
+    videoEls.forEach((v,i)=>{
+      if(i !== idx){
+        v.pause();
+        document.getElementById('vt'+i).classList.remove('playing');
+      }
+    });
+    if(isPlaying){
+      vid.pause();
+      thumb.classList.remove('playing');
+    } else {
+      vid.play();
+      thumb.classList.add('playing');
+    }
+  }
+
+  /* ── DRAG TO SCROLL — video row ── */
+  (function(){
+    const el = document.getElementById('videoScroll');
+    if(!el) return;
+    let isDown=false, startX, scrollLeft;
+    el.addEventListener('mousedown', e=>{isDown=true;startX=e.pageX-el.offsetLeft;scrollLeft=el.scrollLeft;});
+    el.addEventListener('mouseleave',()=>{isDown=false;});
+    el.addEventListener('mouseup',()=>{isDown=false;});
+    el.addEventListener('mousemove',e=>{
+      if(!isDown) return;
+      e.preventDefault();
+      const x=e.pageX-el.offsetLeft;
+      el.scrollLeft=scrollLeft-(x-startX)*1.2;
+    });
+  })();
+  </script>
+
+</section>
+<!-- ══════════ END A FEW THINGS I'M PROUD OF ══════════ -->
+
+
 <section id="projects">
   <div class="proj-hdr">
     <div class="proj-hdr-l">
-      <div class="sec-label" style="color:var(--muted);">Selected Work</div>
+      <div class="sec-label" style="color:var(--muted);opacity:0;pointer-events:none;"></div>
       <h2 class="proj-title-main">Built for <em>brands</em><br>that think in systems.</h2>
     </div>
     <div class="proj-hdr-count">05</div>
